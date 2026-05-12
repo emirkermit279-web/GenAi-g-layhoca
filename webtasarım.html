@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eroğlu İnşaat</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#111;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    a{
+      text-decoration:none;
+      color:white;
+    }
+
+    /* NAVBAR */
+
+    nav{
+      width:100%;
+      padding:25px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:1000;
+      background:rgba(0,0,0,0.45);
+      backdrop-filter:blur(10px);
+    }
+
+    .logo{
+      font-size:32px;
+      font-weight:800;
+      font-family:'Montserrat',sans-serif;
+      color:#d4a24c;
+    }
+
+    .menu{
+      display:flex;
+      gap:35px;
+      align-items:center;
+    }
+
+    .menu a{
+      font-size:15px;
+      transition:0.3s;
+    }
+
+    .menu a:hover{
+      color:#d4a24c;
+    }
+
+    .contact-btn{
+      border:1px solid white;
+      padding:10px 18px;
+      border-radius:10px;
+      transition:0.3s;
+    }
+
+    .contact-btn:hover{
+      background:white;
+      color:black;
+    }
+
+    /* HERO */
+
+    .hero{
+      height:100vh;
+      background:
+      linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+      url('https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      padding:0 8%;
+    }
+
+    .hero-content{
+      max-width:700px;
+    }
+
+    .hero h1{
+      font-size:72px;
+      line-height:1.1;
+      font-family:'Montserrat',sans-serif;
+      margin-bottom:20px;
+    }
+
+    .hero span{
+      color:#d4a24c;
+    }
+
+    .hero p{
+      font-size:18px;
+      color:#ddd;
+      line-height:1.8;
+      margin-bottom:35px;
+    }
+
+    .buttons{
+      display:flex;
+      gap:20px;
+    }
+
+    .btn{
+      padding:15px 35px;
+      border-radius:50px;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    .btn-gold{
+      background:#d4a24c;
+      color:#111;
+    }
+
+    .btn-gold:hover{
+      background:white;
+    }
+
+    .btn-outline{
+      border:1px solid white;
+    }
+
+    .btn-outline:hover{
+      background:white;
+      color:black;
+    }
+
+    /* ABOUT */
+
+    .section{
+      padding:110px 8%;
+    }
+
+    .title{
+      font-size:42px;
+      margin-bottom:20px;
+      font-family:'Montserrat',sans-serif;
+    }
+
+    .title span{
+      color:#d4a24c;
+    }
+
+    .about{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:60px;
+      align-items:center;
+    }
+
+    .about img{
+      width:100%;
+      border-radius:25px;
+    }
+
+    .about p{
+      color:#ccc;
+      line-height:1.9;
+      font-size:17px;
+    }
+
+    /* SERVICES */
+
+    .services{
+      background:#181818;
+    }
+
+    .service-grid{
+      margin-top:50px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:#222;
+      padding:35px;
+      border-radius:20px;
+      transition:0.4s;
+      border:1px solid transparent;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+      border-color:#d4a24c;
+    }
+
+    .card h3{
+      margin-bottom:15px;
+      color:#d4a24c;
+    }
+
+    .card p{
+      color:#bbb;
+      line-height:1.7;
+    }
+
+    /* PROJECTS */
+
+    .project-grid{
+      margin-top:50px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:25px;
+    }
+
+    .project{
+      position:relative;
+      overflow:hidden;
+      border-radius:20px;
+    }
+
+    .project img{
+      width:100%;
+      height:350px;
+      object-fit:cover;
+      transition:0.5s;
+    }
+
+    .project:hover img{
+      transform:scale(1.1);
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(transparent,rgba(0,0,0,0.9));
+      display:flex;
+      align-items:flex-end;
+      padding:30px;
+    }
+
+    .overlay h3{
+      font-size:26px;
+    }
+
+    /* CONTACT */
+
+    .contact{
+      background:#181818;
+      text-align:center;
+    }
+
+    .contact p{
+      color:#bbb;
+      margin:20px 0;
+      line-height:1.8;
+    }
+
+    .contact-box{
+      margin-top:40px;
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      flex-wrap:wrap;
+    }
+
+    .contact-item{
+      background:#222;
+      padding:25px 35px;
+      border-radius:15px;
+    }
+
+    /* FOOTER */
+
+    footer{
+      padding:30px 8%;
+      text-align:center;
+      border-top:1px solid #222;
+      color:#888;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:900px){
+
+      .hero h1{
+        font-size:48px;
+      }
+
+      .about{
+        grid-template-columns:1fr;
+      }
+
+      .menu{
+        display:none;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+    <div class="logo">EROĞLU İNŞAAT</div>
+
+    <div class="menu">
+      <a href="#anasayfa">Anasayfa</a>
+      <a href="#hakkimizda">Hakkımızda</a>
+      <a href="#projeler">Projeler</a>
+      <a href="#hizmetler">Hizmetler</a>
+      <a href="#iletisim" class="contact-btn">İletişim</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero" id="anasayfa">
+
+    <div class="hero-content">
+
+      <h1>
+        Geleceği <span>Sağlam</span><br>
+        Temellerle İnşa Ediyoruz
+      </h1>
+
+      <p>
+        Modern mimari anlayışı, kaliteli işçilik ve güvenilir hizmet anlayışıyla
+        yaşam alanlarını geleceğe taşıyoruz.
+      </p>
+
+      <div class="buttons">
+        <a href="#projeler" class="btn btn-gold">Projelerimiz</a>
+        <a href="#iletisim" class="btn btn-outline">İletişim</a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section class="section" id="hakkimizda">
+
+    <div class="about">
+
+      <div>
+        <h2 class="title">Hakkımızda <span>.</span></h2>
+
+        <p>
+          Eroğlu İnşaat olarak modern yaşam alanları üretmeyi hedefleyen,
+          kaliteyi ve güveni ön planda tutan bir inşaat firmasıyız.
+          Yenilikçi projelerimizle estetik ve konforu bir araya getiriyoruz.
+        </p>
+
+      </div>
+
+      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop">
+
+    </div>
+
+  </section>
+
+  <!-- SERVICES -->
+
+  <section class="section services" id="hizmetler">
+
+    <h2 class="title">Hizmetlerimiz <span>.</span></h2>
+
+    <div class="service-grid">
+
+      <div class="card">
+        <h3>Villa Projeleri</h3>
+        <p>
+          Modern ve lüks villa tasarımlarıyla kaliteli yaşam alanları sunuyoruz.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Anahtar Teslim</h3>
+        <p>
+          Tüm süreçleri profesyonel ekibimizle eksiksiz yönetiyoruz.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>İç Mimarlık</h3>
+        <p>
+          Şık, fonksiyonel ve modern iç mekan çözümleri üretiyoruz.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Gayrimenkul</h3>
+        <p>
+          Değerli yatırım fırsatları ve profesyonel danışmanlık hizmeti.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PROJECTS -->
+
+  <section class="section" id="projeler">
+
+    <h2 class="title">Projelerimiz <span>.</span></h2>
+
+    <div class="project-grid">
+
+      <div class="project">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop">
+        <div class="overlay">
+          <h3>Lüks Villa Projesi</h3>
+        </div>
+      </div>
+
+      <div class="project">
+        <img src="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=1200&auto=format&fit=crop">
+        <div class="overlay">
+          <h3>Modern Residence</h3>
+        </div>
+      </div>
+
+      <div class="project">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200&auto=format&fit=crop">
+        <div class="overlay">
+          <h3>Prestij Konutları</h3>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+
+  <section class="section contact" id="iletisim">
+
+    <h2 class="title">İletişim <span>.</span></h2>
+
+    <p>
+      Hayalinizdeki projeyi birlikte inşa edelim.
+      Bizimle hemen iletişime geçin.
+    </p>
+
+    <div class="contact-box">
+
+      <div class="contact-item">
+        📞 +90 555 555 55 55
+      </div>
+
+      <div class="contact-item">
+        ✉ info@erogluinsaat.com
+      </div>
+
+      <div class="contact-item">
+        📍 Sinop / Türkiye
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    © 2026 Eroğlu İnşaat - Tüm Hakları Saklıdır.
+  </footer>
+
+</body>
+</html>
