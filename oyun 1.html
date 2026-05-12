@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Top Yakalama Oyunu</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#111;
+    overflow:hidden;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+#gameArea{
+    width:100vw;
+    height:100vh;
+    position:relative;
+    background:
+    linear-gradient(to bottom,#1b1b1b,#000);
+}
+
+#player{
+    width:120px;
+    height:20px;
+    background:#f5b041;
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    border-radius:20px;
+    box-shadow:0 0 20px #f5b041;
+}
+
+.ball{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:white;
+    position:absolute;
+    top:-40px;
+    box-shadow:0 0 15px white;
+}
+
+#score{
+    position:absolute;
+    top:20px;
+    left:20px;
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+}
+
+#gameOver{
+    position:absolute;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:rgba(0,0,0,0.8);
+    color:white;
+    z-index:10;
+}
+
+#gameOver h1{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+#gameOver button{
+    padding:15px 40px;
+    border:none;
+    border-radius:15px;
+    font-size:20px;
+    cursor:pointer;
+    background:#f5b041;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+
+<div id="gameArea">
+
+    <div id="score">Skor: 0</div>
+
+    <div id="player"></div>
+
+    <div id="gameOver">
+        <h1>OYUN BİTTİ</h1>
+        <button onclick="restartGame()">Tekrar Oyna</button>
+    </div>
+
+</div>
+
+<script>
+
+const gameArea = document.getElementById("gameArea");
+const player = document.getElementById("player");
+const scoreText = document.getElementById("score");
+const gameOverScreen = document.getElementById("gameOver");
+
+let playerX = window.innerWidth / 2 - 60;
+let score = 0;
+let gameRunning = true;
+
+player.style.left = playerX + "px";
+
+document.addEventListener("mousemove",(e)=>{
+
+    playerX = e.clientX - 60;
+
+    if(playerX < 0){
+        playerX = 0;
+    }
+
+    if(playerX > window.innerWidth - 120){
+        playerX = window.innerWidth - 120;
+    }
+
+    player.style.left = playerX + "px";
+
+});
+
+function createBall(){
+
+    if(!gameRunning) return;
+
+    const ball = document.createElement("div");
+    ball.classList.add("ball");
+
+    let ballX = Math.random() * (window.innerWidth - 30);
+
+    ball.style.left = ballX + "px";
+
+    gameArea.appendChild(ball);
+
+    let ballY = -40;
+
+    const speed = 4 + Math.random() * 4;
+
+    const fall = setInterval(()=>{
+
+        if(!gameRunning){
+            clearInterval(fall);
+            return;
+        }
+
+        ballY += speed;
+
+        ball.style.top = ballY + "px";
+
+        const playerRect = player.getBoundingClientRect();
+        const ballRect = ball.getBoundingClientRect();
+
+        // Çarpışma kontrolü
+        if(
+            ballRect.bottom >= playerRect.top &&
+            ballRect.left < playerRect.right &&
+            ballRect.right > playerRect.left
+        ){
+
+            score++;
+
+            scoreText.innerText = "Skor: " + score;
+
+            ball.remove();
+
+            clearInterval(fall);
+
+        }
+
+        // Kaçırılırsa
+        if(ballY > window.innerHeight){
+
+            gameOver();
+
+            clearInterval(fall);
+
+            ball.remove();
+
+        }
+
+    },20);
+
+}
+
+function gameOver(){
+
+    gameRunning = false;
+
+    gameOverScreen.style.display = "flex";
+
+}
+
+function restartGame(){
+
+    location.reload();
+
+}
+
+setInterval(createBall,900);
+
+</script>
+
+</body>
+</html>
